@@ -811,3 +811,13 @@ class TestDSLPipelineJobValidate:
             "jobs.blob_azuresql.compute": "Compute not set",
             "jobs.blob_azuresql.inputs.source": "Inputs field only support one input called source in export task",
         }
+
+    def test_pipeline_validation_with_warning(self):
+        from test_configs.dsl_pipeline.sub_pipeline.pipeline import generate_dsl_pipeline
+
+        pipeline = generate_dsl_pipeline()
+        validate_result = pipeline._validate()
+        assert validate_result.error_messages == {
+            "jobs.blob_azuresql.compute": "Compute not set",
+            "jobs.blob_azuresql.inputs.source": "Inputs field only support one input called source in export task",
+        }
